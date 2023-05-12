@@ -2,8 +2,9 @@
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
-  options.schema = process.env.SCHEMA; // define your schema in options object
+  options.schema = process.env.SCHEMA;
 }
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -17,13 +18,18 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
         username: {
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(30),
+          allowNull: false,
+          unique: true,
         },
         email: {
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(256),
+          allowNull: false,
+          unique: true,
         },
         hashedPassword: {
-          type: Sequelize.STRING,
+          type: Sequelize.STRING.BINARY,
+          allowNull: false,
         },
         createdAt: {
           allowNull: false,
