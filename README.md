@@ -4,7 +4,7 @@
 
 ![db-schema]
 
-[db-schema]: ./images/example.png
+[db-schema]: /images/meetup_dbdiagram.png
 
 ## API Documentation
 
