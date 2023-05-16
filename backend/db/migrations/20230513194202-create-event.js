@@ -20,7 +20,7 @@ module.exports = {
           allowNull: false,
 
           references: {
-            model: "Venue",
+            model: "Venues",
             key: "id",
           },
         },
@@ -77,6 +77,6 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "Events";
-    await queryInterface.dropTable(option);
+    await queryInterface.dropTable(options);
   },
 };
