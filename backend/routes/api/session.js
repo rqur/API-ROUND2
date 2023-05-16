@@ -21,13 +21,24 @@ const validateLogin = [
 ];
 // Log in
 router.post("/", async (req, res, next) => {
-  const { credential, password } = req.body;
-
+  let { email, password, username } = req.body;
+  email = email ?? "";
+  username = username ?? "";
+  if (!email && !username) {
+    const err = new Error("Bad Request");
+    err.status = 400;
+    err.title = "Login failed";
+    err.errors = {
+      email: "Email is required",
+      password: "Password is required",
+    };
+    return next(err);
+  }
   const user = await User.unscoped().findOne({
     where: {
       [Op.or]: {
-        username: credential,
-        email: credential,
+        username,
+        email,
       },
     },
   });
@@ -44,6 +55,8 @@ router.post("/", async (req, res, next) => {
     id: user.id,
     email: user.email,
     username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName,
   };
 
   await setTokenCookie(res, safeUser);
@@ -64,6 +77,8 @@ router.get("/", (req, res) => {
   if (user) {
     const safeUser = {
       id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       username: user.username,
     };
