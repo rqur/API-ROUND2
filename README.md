@@ -8,31 +8,6 @@
 
 ## API Documentation
 
-<!--!!START SILENT -->
-
-# Meetup Clone
-
-<!--!!END -->
-<!--!!ADD -->
-<!-- # `<name of application here>` -->
-<!--!!END_ADD -->
-
-## Database Schema Design
-
-<!--!!START SILENT -->
-
-![meetup-database-schema]
-
-[meetup-database-schema]: https://appacademy-open-assets.s3.us-west-1.amazonaws.com/Modular-Curriculum/content/week-12/meetup-db-schema.png
-[meetup-db-diagram-info]: https://appacademy-open-assets.s3.us-west-1.amazonaws.com/Modular-Curriculum/content/week-12/meetup-db-diagram-info.txt
-
-<!--!!END -->
-<!--!!ADD -->
-<!-- `<insert database schema design here>` -->
-<!--!!END_ADD -->
-
-## API Documentation
-
 ## USER AUTHENTICATION/AUTHORIZATION
 
 ### All endpoints that require authentication
