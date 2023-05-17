@@ -12,17 +12,17 @@ module.exports = {
       {
         eventId: 1,
         url: "www.google1.com",
-        preview: "true",
+        preview: true,
       },
       {
         eventId: 2,
         url: "www.google2.com",
-        preview: "true",
+        preview: true,
       },
       {
         eventId: 3,
         url: "www.google3.com",
-        preview: "false",
+        preview: false,
       },
     ]);
   },

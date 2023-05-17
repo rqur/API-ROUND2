@@ -12,18 +12,18 @@ module.exports = {
       {
         groupId: 1,
         url: "www.google.com",
-        preview: "true",
+        preview: true,
       },
 
       {
         groupId: 2,
         url: "www.google1.com",
-        preview: "true",
+        preview: true,
       },
       {
         groupId: 3,
         url: "www.google2.com",
-        preview: "true",
+        preview: true,
       },
     ]);
   },
