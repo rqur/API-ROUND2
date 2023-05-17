@@ -13,19 +13,19 @@ module.exports = {
         id: 1,
         eventId: 1,
         userId: 1,
-        status: "in person",
+        status: "waitlist",
       },
       {
         id: 2,
         eventId: 2,
         userId: 2,
-        status: "in person",
+        status: "attending",
       },
       {
         id: 3,
         eventId: 3,
         userId: 3,
-        status: "in person",
+        status: "waitlist",
       },
     ]);
   },
