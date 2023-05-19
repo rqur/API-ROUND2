@@ -8,15 +8,19 @@ module.exports = (sequelize, DataTypes) => {
         through: models.Attendance,
         foreignKey: "eventId",
         otherKey: "userId",
+        onDelete: "CASCADE",
       });
       Event.hasMany(models.EventImage, {
         foreignKey: "eventId",
+        onDelete: "CASCADE",
       });
       Event.belongsTo(models.Group, {
-        foreignKey: "eventId",
+        foreignKey: "id",
+        onDelete: "CASCADE",
       });
       Event.belongsTo(models.Venue, {
-        foreignKey: "eventId",
+        foreignKey: "id",
+        onDelete: "CASCADE",
       });
     }
   }
@@ -30,7 +34,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-
+      groupId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       type: {
         type: DataTypes.ENUM,
         values: ["in person", "online"],
@@ -41,15 +48,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       startDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
       },
       endDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
       },
     },
