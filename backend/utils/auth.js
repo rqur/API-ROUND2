@@ -113,6 +113,7 @@ const validGroup = ({ name, about, type, private, city, state }) => {
     private,
     city,
     state,
+    type,
   };
 };
 const validVenue = ({ address, city, state, lat, lng }) => {
@@ -188,7 +189,7 @@ const validEvent = ({
   if (!description) {
     errRes.errors.description = "Description is required";
   }
-  if (!startDate || startDate <= today()) {
+  if (!startDate || startDate >= today()) {
     errRes.errors.startDate = "Start date must be in the future";
   }
   if (!endDate || endDate < startDate) {

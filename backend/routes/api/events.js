@@ -53,6 +53,46 @@ router.get("/", async (req, res) => {
 
   res.json({ Events: eventArr });
 });
+// Add an Image to a Event based on the Event's id
+router.post("/:eventId/images", requireAuth, async (req, res) => {
+  const eventId = req.params.eventId;
+  const userId = req.user.id;
+  const { url, preview } = req.body;
+
+  const event = await Event.findByPk(eventId);
+
+  checkIfExist(event, "Event couldn't be found");
+
+  const user = await Membership.findOne({
+    where: {
+      userId,
+      groupId: event.groupId,
+    },
+  });
+  // const isCoHost = await Event.findByPk({
+  //   where: {
+  //     url,
+  //       eventId,
+  //       preview,
+  //   }
+  // })
+  if (user.status === "co-host" || userId === event.organizerId) {
+    const createdImg = await EventImage.create({
+      url,
+      eventId,
+      preview,
+    });
+
+    const newImg = await EventImage.scope("newImage").findByPk(createdImg.id);
+    if (newImg.id) {
+      return res.status(200).json(newImg);
+    }
+  } else {
+    returnMsg.message = "Forbidden";
+    returnMsg.statusCode = 403;
+    return res.status(403).json(returnMsg);
+  }
+});
 
 // Delete an Event//
 router.delete("/:eventId", requireAuth, async (req, res) => {
