@@ -13,7 +13,7 @@ module.exports = {
         id: 1,
         eventId: 1,
         userId: 1,
-        status: "waitlist",
+        status: "pending",
       },
       {
         id: 2,
@@ -25,7 +25,7 @@ module.exports = {
         id: 3,
         eventId: 3,
         userId: 3,
-        status: "waitlist",
+        status: "pending",
       },
     ]);
   },
