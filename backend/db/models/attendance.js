@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.ENUM,
         allowNull: false,
-        values: ["pending", "waitlist", "attending"],
+        values: ["pending", "attending", "waitlist"],
       },
       eventId: {
         type: DataTypes.INTEGER,
