@@ -18,6 +18,7 @@ module.exports = {
         venueId: {
           type: Sequelize.INTEGER,
           allowNull: false,
+          onDelete: "CASCADE",
 
           references: {
             model: "Venues",
@@ -27,6 +28,7 @@ module.exports = {
         groupId: {
           type: Sequelize.INTEGER,
           allowNull: false,
+          onDelete: "CASCADE",
 
           references: {
             model: "Groups",
@@ -50,15 +52,15 @@ module.exports = {
           allowNull: false,
         },
         price: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.FLOAT,
           allowNull: false,
         },
         startDate: {
-          type: Sequelize.DATE,
+          type: Sequelize.DATEONLY,
           allowNull: false,
         },
         endDate: {
-          type: Sequelize.DATE,
+          type: Sequelize.DATEONLY,
           allowNull: false,
         },
         createdAt: {

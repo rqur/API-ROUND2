@@ -18,6 +18,7 @@ module.exports = {
         eventId: {
           type: Sequelize.INTEGER,
           allowNull: false,
+          onDelete: "CASCADE",
 
           references: {
             model: "Events",
@@ -27,6 +28,7 @@ module.exports = {
         userId: {
           type: Sequelize.INTEGER,
           allowNull: false,
+          onDelete: "CASCADE",
 
           references: {
             model: "Users",
@@ -34,7 +36,7 @@ module.exports = {
           },
         },
         status: {
-          type: Sequelize.ENUM("pending", "waitlist", "attending"),
+          type: Sequelize.ENUM("pending", "attending", "waitlist"),
           allowNull: false,
         },
         createdAt: {
