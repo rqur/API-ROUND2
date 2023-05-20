@@ -12,7 +12,7 @@ const {
 const {
   restoreUser,
   requireAuth,
-  checkAutorization,
+  checkAuthorization,
   validEvent,
 } = require("../../utils/auth");
 const { checkIfExist, validQuery } = require("../../utils/validation");
@@ -29,13 +29,7 @@ router.get("/", async (req, res) => {
       },
     ],
     attributes: {
-      exclude: [
-        "capacity",
-        "price",
-        "createdAt",
-        "updatedAt",
-        "description",
-      ],
+      exclude: ["capacity", "price", "createdAt", "updatedAt", "description"],
     },
     ...options,
   });
@@ -106,7 +100,7 @@ router.post("/:eventId/images", requireAuth, async (req, res) => {
   const isOrganizer = await Group.findOne({
     where: { id: event.groupId, organizerId: userId },
   });
-  checkAutorization(isCoHost || isOrganizer);
+  checkAuthorization(isCoHost || isOrganizer);
 
   const createdImg = await EventImage.create({
     url,
@@ -132,7 +126,7 @@ router.delete("/:eventId", requireAuth, async (req, res) => {
     },
   });
   const isOrganizer = userId === group.organizerId;
-  checkAutorization(isOrganizer || isCoHost);
+  checkAuthorization(isOrganizer || isCoHost);
 
   await event.destroy();
   return res.json({ message: "Successfully deleted" });
@@ -157,7 +151,7 @@ router.put("/:eventId", requireAuth, async (req, res) => {
     where: { organizerId: userId, id: event.groupId },
   });
   console.log({ isOrganizer, isCoHost });
-  checkAutorization(isOrganizer || isCoHost);
+  checkAuthorization(isOrganizer || isCoHost);
 
   event.update(validEvent(req.body));
   res.json(event);
@@ -219,7 +213,7 @@ router.post("/:eventId/attendance", requireAuth, async (req, res) => {
       status: { [Op.not]: "pending" },
     },
   });
-  checkAutorization(isMember);
+  checkAuthorization(isMember);
 
   const attendanceExists = await Attendance.findOne({
     where: {
@@ -278,7 +272,7 @@ router.put("/:eventId/attendance", requireAuth, async (req, res) => {
     },
   });
   const isOrganizer = currUserId === group.organizerId;
-  checkAutorization(isCoHost || isOrganizer);
+  checkAuthorization(isCoHost || isOrganizer);
 
   const attendance = await Attendance.findOne({
     where: {
@@ -321,7 +315,7 @@ router.delete("/:eventId/attendance", requireAuth, async (req, res) => {
 
   const isOrganizer = group ? currUserId === group.organizerId : null;
   const isAuthorized = currUserId === userId || isOrganizer;
-  checkAutorization(
+  checkAuthorization(
     isAuthorized,
     "Only the User or organizer may delete an Attendance"
   );

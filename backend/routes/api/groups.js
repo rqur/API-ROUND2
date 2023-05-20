@@ -13,7 +13,7 @@ const {
 const { checkIfExist } = require("../../utils/validation");
 const {
   requireAuth,
-  checkAutorization,
+  checkAuthorization,
   validGroup,
   validVenue,
   validEvent,
@@ -133,7 +133,7 @@ router.post("/:groupId/images", requireAuth, async (req, res, next) => {
 
   checkIfExist(group);
 
-  checkAutorization(group.organizerId === req.user.id);
+  checkAuthorization(group.organizerId === req.user.id);
 
   const newGroupImage = await GroupImage.create({
     groupId,
@@ -156,7 +156,7 @@ router.put("/:groupId", requireAuth, async (req, res) => {
 
   const group = await Group.findByPk(groupId);
   checkIfExist(group);
-  checkAutorization(group.organizerId === userId);
+  checkAuthorization(group.organizerId === userId);
 
   await group.update(validGroup(req.body));
   return res.json(group);
@@ -167,7 +167,7 @@ router.delete("/:groupId", requireAuth, async (req, res) => {
   const userId = req.user.id;
   const group = await Group.findByPk(req.params.groupId);
   checkIfExist(group);
-  checkAutorization(group.organizerId === userId);
+  checkAuthorization(group.organizerId === userId);
   await group.destroy();
   res.json({
     message: "Successfully deleted",
@@ -190,7 +190,7 @@ router.get("/:groupId/venues", requireAuth, async (req, res) => {
   });
 
   const isOrganizer = group.organizerId === userId;
-  checkAutorization(isOrganizer || isCoHost);
+  checkAuthorization(isOrganizer || isCoHost);
   const Venues = await Venue.findAll({
     where: {
       groupId,
@@ -217,7 +217,7 @@ router.post("/:groupId/venues", requireAuth, async (req, res) => {
     },
   });
   const isOrganizer = group.organizerId === userId;
-  checkAutorization(isOrganizer || isCoHost);
+  checkAuthorization(isOrganizer || isCoHost);
 
   const newVenue = await Venue.create({
     groupId,
@@ -248,13 +248,7 @@ router.get("/:groupId/events", async (req, res) => {
       },
     ],
     attributes: {
-      exclude: [
-        "capacity",
-        "price",
-        "createdAt",
-        "updatedAt",
-        "description",
-      ],
+      exclude: ["capacity", "price", "createdAt", "updatedAt", "description"],
       include: ["groupId"],
     },
   });
@@ -297,7 +291,7 @@ router.post("/:groupId/events", requireAuth, async (req, res) => {
   });
 
   const isOrganizer = group.organizerId === userId;
-  checkAutorization(isOrganizer || isCoHost);
+  checkAuthorization(isOrganizer || isCoHost);
   const event = await Event.create({
     groupId,
     ...validEvent(req.body),
@@ -455,10 +449,10 @@ router.put("/:groupId/membership", requireAuth, async (req, res) => {
     where: { userId, groupId, status: "co-host" },
   });
   const isOrganizer = group.organizerId === userId;
-  checkAutorization(isCoHost || isOrganizer);
+  checkAuthorization(isCoHost || isOrganizer);
 
   if (status === "co-host") {
-    checkAutorization(isOrganizer);
+    checkAuthorization(isOrganizer);
   }
 
   await member.update({ status });
@@ -492,7 +486,7 @@ router.delete("/:groupId/membership", requireAuth, async (req, res) => {
     },
   });
   const isOrganizer = group.organizerId === userId;
-  checkAutorization(isCoHost || isOrganizer);
+  checkAuthorization(isCoHost || isOrganizer);
 
   const member = await Membership.findOne({
     where: {

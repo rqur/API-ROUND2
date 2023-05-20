@@ -1,7 +1,7 @@
 const {
   requireAuth,
   validVenue,
-  checkAutorization,
+  checkAuthorization,
 } = require("../../utils/auth");
 const { Venue, Group, Membership } = require("../../db/models");
 const { checkIfExist } = require("../../utils/validation");
@@ -24,7 +24,7 @@ router.put("/:venueId", requireAuth, async (req, res) => {
       groupId: venue.groupId,
     },
   });
-  checkAutorization(isOrganizer || isCoHost);
+  checkAuthorization(isOrganizer || isCoHost);
 
   await venue.update(validVenue(req.body));
   const venueObj = venue.toJSON();

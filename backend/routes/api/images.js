@@ -6,7 +6,7 @@ const {
   Event,
   Membership,
 } = require("../../db/models");
-const { requireAuth, checkAutorization } = require("../../utils/auth");
+const { requireAuth, checkAuthorization } = require("../../utils/auth");
 const { checkIfExist } = require("../../utils/validation");
 
 //Delete an Image for a Group
@@ -23,7 +23,7 @@ router.delete("/group-images/:imageId", requireAuth, async (req, res) => {
       status: "co-host",
     },
   });
-  checkAutorization(group.organizerId === userId || isCoHost);
+  checkAuthorization(group.organizerId === userId || isCoHost);
   await groupImage.destroy();
   res.json({
     message: "Successfully deleted",
@@ -45,7 +45,7 @@ router.delete("/event-images/:imageId", requireAuth, async (req, res) => {
     },
   });
   const group = await Group.findByPk(event.groupId);
-  checkAutorization(group.organizerId === userId || isCoHost);
+  checkAuthorization(group.organizerId === userId || isCoHost);
   await eventImage.destroy();
   res.json({
     message: "Successfully deleted",
