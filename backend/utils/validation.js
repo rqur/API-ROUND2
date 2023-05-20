@@ -31,7 +31,7 @@ const checkIfExist = (condition, message = "Group couldn't be found") => {
 const setOptions = ({ name, page, size, type, startDate }) => {
   const options = { where: {} };
   page = page ?? 1;
-  size = size ?? 1;
+  size = size ?? 20;
   options.limit = size;
   options.offset = size * (page - 1);
   if (name) {

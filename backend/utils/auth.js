@@ -70,7 +70,7 @@ const requireAuth = function (req, _res, next) {
   return next(err);
 };
 
-const requireAuthResponse = (condition, message = "Forbidden") => {
+const checkAutorization = (condition, message = "Forbidden") => {
   if (!condition) {
     throw {
       status: 403,
@@ -88,16 +88,16 @@ const validGroup = ({ name, about, type, private, city, state }) => {
   if (!state) {
     errRes.errors.state = "State is required";
   }
-  if (!name) {
+  if (!name || name.length >= 60) {
     errRes.errors.name = "Name must be 60 characters or less";
   }
-  if (!about) {
+  if (!about || about.length <= 50) {
     errRes.errors.about = "About must be 50 characters or more";
   }
-  if (!type) {
-    errRes.errors.type = "Type must be 'Online' or 'In persons";
+  if (!type || (type !== "Online" && type !== "In person")) {
+    errRes.errors.type = "Type must be 'Online' or 'In person";
   }
-  if (!private) {
+  if (!private && typeof private !== "boolean") {
     errRes.errors.private = "Private must be a boolean";
   }
 
@@ -111,9 +111,9 @@ const validGroup = ({ name, about, type, private, city, state }) => {
     name,
     about,
     private,
+    type: type.toLowerCase(),
     city,
     state,
-    type,
   };
 };
 const validVenue = ({ address, city, state, lat, lng }) => {
@@ -124,13 +124,13 @@ const validVenue = ({ address, city, state, lat, lng }) => {
   };
 
   if (!address) {
-    errRes.errors.address = "Street is required";
+    errRes.errors.address = "Street address is required";
   }
   if (!city) {
-    errRes.errors.city = "City address is required";
+    errRes.errors.city = "City is required";
   }
   if (!state) {
-    errRes.errors.state = "State address is required";
+    errRes.errors.state = "State is required";
   }
   if (!lat || Number.isNaN(Number(lat))) {
     errRes.errors.lat = "Latitude is not valids";
@@ -177,7 +177,10 @@ const validEvent = ({
   if (!name || name.length <= 5) {
     errRes.errors.name = "Name must be at least 5 characters";
   }
-  if (type.toLowerCase() !== "online" && type.toLowerCase() !== "in person") {
+  if (
+    !type ||
+    (type.toLowerCase() !== "online" && type.toLowerCase() !== "in person")
+  ) {
     errRes.errors.type = "Type must be Online or In person";
   }
   if (!capacity || Number.isNaN(Number(capacity))) {
@@ -215,7 +218,7 @@ module.exports = {
   setTokenCookie,
   restoreUser,
   requireAuth,
-  requireAuthResponse,
+  checkAutorization,
   validGroup,
   validVenue,
   validEvent,
