@@ -330,8 +330,10 @@ router.get("/:groupId/members", async (req, res) => {
   const isOrganizer = group.organizerId === userId;
   let where;
 
-  if (!(isCoHost && isOrganizer)) {
-    where = { status: { [Op.not]: "pending" } };
+  if (!(isCoHost || isOrganizer)) {
+    where = { status: { [Op.not]: "pending" }, groupId };
+  } else {
+    where = { groupId };
   }
 
   const members = await Membership.findAll({
