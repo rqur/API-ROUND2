@@ -3,11 +3,10 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Group extends Model {
     static associate(models) {
-      Group.hasMany(models.Event),
-        {
-          foreignKey: "groupId",
-          onDelete: "CASCADE",
-        };
+      Group.hasMany(models.Event, {
+        foreignKey: "groupId",
+        onDelete: "CASCADE",
+      });
       Group.belongsTo(models.User, {
         as: "Organizer",
         foreignKey: "organizerId",
