@@ -474,6 +474,7 @@ router.delete("/:groupId/membership", requireAuth, async (req, res) => {
   const { memberId } = req.body;
 
   if (!memberId) {
+    checkIfExist(group, "Group couldn't be found");
     return res.status(400).json({ message: "PROVIDE A MEMBERID!!!" });
   }
 
