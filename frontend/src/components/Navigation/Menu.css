@@ -1,0 +1,7 @@
+#Menu {
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+  cursor: pointer;
+  color: rgb(141, 8, 99);
+}

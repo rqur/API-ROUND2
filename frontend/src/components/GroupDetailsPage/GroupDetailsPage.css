@@ -1,0 +1,31 @@
+.group-details__group-section {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.group-details__image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: black solid 1px;
+}
+
+.group-details__group-image {
+  width: 500px;
+}
+
+.group-details__breadcrumb {
+  margin-bottom: 20px;
+}
+
+.crud-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.group-details__join-group-btn {
+  background-color: teal;
+  color: aliceblue;
+  cursor: pointer;
+}

@@ -1,0 +1,12 @@
+/* TODO Add site wide styles */
+body {
+  background-color: rgb(244, 236, 224);
+}
+
+p {
+  margin: 0;
+}
+
+.no-margin {
+  margin: 0;
+}
