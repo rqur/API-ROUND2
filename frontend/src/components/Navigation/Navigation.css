@@ -1,0 +1,12 @@
+.navbar {
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  list-style: none;
+  align-items: center;
+}
+
+#modal-button:hover {
+  color: rgb(227, 14, 156);
+}

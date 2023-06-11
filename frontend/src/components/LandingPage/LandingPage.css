@@ -1,0 +1,52 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 2rem;
+  font-size: 20px;
+  margin: 3rem auto;
+  align-items: center;
+}
+
+.main-content-meetup-works {
+  text-align: center;
+  margin-top: 3rem;
+  grid-column: span 2;
+}
+
+.main-content-cards-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-left: 100px;
+}
+
+.main-content-cards-container > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-content-join-meetup-btn {
+  background-color: hsl(188, 91%, 29%);
+  color: #fff;
+  border: 1px solid black;
+  padding: 0.3rem 0.6rem;
+  box-shadow: 2px 1px 0 0 black;
+  align-items: center;
+  cursor: pointer;
+}
+h2 {
+  color: purple;
+}
+h1 {
+  font-size: 25px;
+}
+.intro {
+  display: flex;
+  flex-direction: row;
+}
+.main-content-image {
+  width: 100%;
+  height: 100%;
+}

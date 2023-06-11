@@ -1,0 +1,12 @@
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d80a94;
+  border: #d80a94;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  width: 93%;
+  align-items: center;
+}
