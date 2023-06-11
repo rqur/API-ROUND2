@@ -1,0 +1,64 @@
+.meetup-form {
+  max-width: 75%;
+  margin: 0 auto;
+}
+
+.meetup-form__heading {
+  margin-bottom: 20px;
+
+  font-size: bold;
+  font-weight: 200;
+  color: #7a065f;
+  border-bottom: 0.3em solid rgba(20, 50, 200, 0.218);
+}
+
+.meetup-form__location-input-section,
+.meetup-form__group-name-input-section,
+.meetup-form__group-desc-input-section,
+.meetup-form__final-steps-section {
+  margin-bottom: 30px;
+  border-bottom: 0.3em solid rgba(20, 50, 200, 0.218);
+}
+
+.meetup-form__group-desc-prompts {
+  padding-inline-start: 20px;
+}
+
+.meetup-form__group-desc-prompts li {
+  margin-bottom: 20px;
+}
+
+.meetup-form__group-type-container p,
+.meetup-form__group-status-container p,
+.meetup-form__group-img-input p {
+  margin-bottom: 10px;
+}
+
+.meetup-form__submit-btn {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+  padding: 10px;
+  border: solid black;
+  background-color: #cf16a4;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 3px 1px 0 0 black;
+}
+h3 {
+  color: #7a065f;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 768px) {
+  .meetup-form {
+    padding: 10px;
+  }
+
+  .meetup-form__submit-btn {
+    font-size: 14px;
+  }
+}
