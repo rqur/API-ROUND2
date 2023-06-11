@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
       },
     ],
     attributes: {
-      exclude: ["capacity", "price", "createdAt", "updatedAt", "description"],
+      exclude: ["capacity", "price", "createdAt", "updatedAt"],
     },
     ...options,
   });
