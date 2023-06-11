@@ -1,0 +1,33 @@
+.title-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.event-card-image-container {
+  display: flex;
+  flex-direction: row;
+  border-top: 2px solid gray;
+}
+.event-card-image {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 2ex;
+}
+.event-card-info-container {
+  margin: 40px;
+}
+
+.event-card-title {
+  padding-bottom: 0;
+  color: black;
+}
+.event-card-date {
+  display: flex;
+  flex-direction: column;
+  margin: 5%;
+  color: #820f7c;
+}
+/* p {
+  font-weight: bold;
+} */
