@@ -8,7 +8,7 @@ const initialState = {
   location: "",
   name: "",
   desc: "",
-  groupType: "Online",
+  groupType: "online",
   groupStatus: "Private",
   imgUrl: "",
 };
@@ -17,9 +17,10 @@ const CreateGroupsForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [formData, setFormData] = useState(initialState);
-
+  const [errors, setErrors] = useState({});
+  const [inFlight, setInflight] = useState(false);
   useEffect(() => {
-    const { location, name, desc } = formData;
+    const { location, name, desc, groupType, groupStatus, imgUrl } = formData;
     const validation = {};
 
     if (!location) {
@@ -28,18 +29,35 @@ const CreateGroupsForm = () => {
     if (!name) {
       validation.name = "Name is required";
     }
-    if (desc.length < 30) {
+    if (desc && desc.length < 30) {
       validation.desc = "Description must be at least 30 characters long";
     }
-  }, [formData]);
 
+    if (!desc) {
+      validation.desc = "Description is required";
+    }
+    if (!groupType) {
+      validation.type = "Group type is required";
+    }
+    if (!groupStatus) {
+      validation.visability = "Visability type is required";
+    }
+    if (!imgUrl) {
+      validation.image = "image is required";
+    }
+    setErrors(validation);
+  }, [formData]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleGroupSubmit = async (e) => {
+    setInflight(true);
     e.preventDefault();
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
     const { location, name, desc, groupType, groupStatus } = formData;
     const [city, state] = location.split(", ");
 
@@ -51,6 +69,7 @@ const CreateGroupsForm = () => {
       city,
       state,
     };
+    console.log(newGroup);
     const res = await dispatch(CreateGroups(newGroup));
     console.log(res);
     history.push(`/groups/${res.id}`);
@@ -59,6 +78,7 @@ const CreateGroupsForm = () => {
   return (
     <div className="meetup-form">
       <section className="meetup-form__heading">
+        <h2>Start a New Group</h2>
         <h3>BECOME AN ORGANIZER</h3>
         <p>We'll walk you through a few steps to build your local community</p>
       </section>
@@ -75,6 +95,7 @@ const CreateGroupsForm = () => {
           value={formData.location}
           onChange={handleInputChange}
         ></input>
+        {errors.location && inFlight && <p>{errors.location}</p>}
       </section>
       <section className="meetup-form__group-name-input-section">
         <h3>What will your group's name be?</h3>
@@ -89,7 +110,8 @@ const CreateGroupsForm = () => {
           name="name"
           value={formData.name}
           onChange={handleInputChange}
-        ></input>
+        ></input>{" "}
+        {errors.name && inFlight && <p>{errors.name}</p>}
       </section>
       <section className="meetup-form__group-desc-input-section">
         <h3>Now describe what your group will be about</h3>
@@ -109,7 +131,8 @@ const CreateGroupsForm = () => {
           name="desc"
           value={formData.desc}
           onChange={handleInputChange}
-        ></textarea>
+        ></textarea>{" "}
+        {errors.desc && inFlight && <p>{errors.desc}</p>}
       </section>
       <section className="meetup-form__final-steps-section">
         <h3>Final steps...</h3>
@@ -121,9 +144,10 @@ const CreateGroupsForm = () => {
             value={formData.groupType}
             onChange={handleInputChange}
           >
-            <option value="Online">Online</option>
-            <option value="In person">In Person</option>
+            <option value="online">Online</option>
+            <option value="in person">In Person</option>
           </select>
+          {errors.type && inFlight && <p>{errors.type}</p>}
         </div>
         <div className="meetup-form__group-status-container">
           <p>Is this group private or public?</p>
@@ -136,15 +160,18 @@ const CreateGroupsForm = () => {
             <option value="Private">Private</option>
             <option value="Public">Public</option>
           </select>
+          {errors.visability && inFlight && <p>{errors.visability}</p>}
         </div>
         <div className="meetup-form__group-img-input">
           <p>Please add an image URL for your group below:</p>
           <input
             placeholder="Image URL"
             name="imgUrl"
+            type="Url"
             value={formData.imgUrl}
             onChange={handleInputChange}
-          ></input>
+          ></input>{" "}
+          {errors.image && inFlight && <p>{errors.image}</p>}
         </div>
       </section>
       <section className="meetup-form__submission-section">

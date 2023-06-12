@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       GroupImage.belongsTo(models.Group, {
         foreignKey: "groupId",
-        onDelete: "CASCADE",
       });
     }
   }
@@ -14,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       groupId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: "CASCADE",
       },
       url: {
         type: DataTypes.STRING,

@@ -29,3 +29,13 @@
   color: aliceblue;
   cursor: pointer;
 }
+.createEvent {
+  background-color: teal;
+  color: aliceblue;
+  cursor: pointer;
+}
+.group-details__group-status-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}

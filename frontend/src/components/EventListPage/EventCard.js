@@ -1,14 +1,16 @@
 import "./EventListPage.css";
 import { useHistory } from "react-router-dom";
-
 import React from "react";
 import cartoon from "./cartoon.jpg";
+
 export const EventCard = ({ event }) => {
   const history = useHistory();
 
   const handleEventClick = () => {
     history.push(`/events/${event.id}`);
   };
+
+  const date = event.startDate.split(" ");
 
   return (
     <div className="event-card-container" onClick={handleEventClick}>
@@ -21,9 +23,9 @@ export const EventCard = ({ event }) => {
             <p className="event-card-description">{event.description}</p>
             {event.Group.city}, {event.Group.state}
           </div>
-          <span className="event-card-date">{event.startDate}</span>
-          <p>## events</p>
-          <span className="event-card-bullet">•</span>
+          <span className="event-card-date">
+            {date[0]} · {date[1]}
+          </span>
           <p>{event.private ? "Private" : "Public"}</p>
         </div>
       </div>

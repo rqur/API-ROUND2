@@ -16,14 +16,19 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.ENUM,
         allowNull: false,
+
         values: ["pending", "attending", "waitlist"],
       },
       eventId: {
         type: DataTypes.INTEGER,
+        onDelete: "CASCADE",
+
         allowNull: false,
       },
       userId: {
         type: DataTypes.INTEGER,
+        onDelete: "CASCADE",
+
         allowNull: false,
       },
     },

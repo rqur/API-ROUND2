@@ -33,7 +33,7 @@ const deleteEvent = (eventToDelete) => {
 };
 export const getAllEventsThunk = () => async (dispatch) => {
   const res = await csrfFetch("/api/events");
-
+  console.log(res);
   if (res.ok) {
     const events = await res.json();
     console.log("events", events);
@@ -55,24 +55,23 @@ export const getSingleEventThunk = (eventId) => async (dispatch) => {
     return err;
   }
 };
-export const createEventThunk = (event, groupId, image, venue) => async (
-  dispatch
-) => {
+export const createEventThunk = (event) => async (dispatch) => {
   try {
-    const res = await csrfFetch(`/api/groups/${groupId}/events`, {
+    const res = await csrfFetch(`/api/groups/${event.groupId}/events`, {
       method: "POST",
       body: JSON.stringify(event),
     });
+    console.log(`/api/groups/${event.groupId}/events`);
 
     if (res.ok) {
       const newEvent = await res.json();
-      newEvent.previewImage = image.url;
-      newEvent.Venue = { id: venue.id, city: venue.city, state: venue.state };
+      // newEvent.previewImage = image.url;
+      // newEvent.Venue = { id: venue.id, city: venue.city, state: venue.state };
 
-      await csrfFetch(`/api/events/${newEvent.id}/images`, {
-        method: "POST",
-        body: JSON.stringify(image),
-      });
+      // await csrfFetch(`/api/events/${newEvent.id}/images`, {
+      //   method: "POST",
+      //   body: JSON.stringify(image),
+      // });
 
       dispatch(createEvent(newEvent));
 
@@ -80,9 +79,11 @@ export const createEventThunk = (event, groupId, image, venue) => async (
     }
   } catch (err) {
     const error = await err.json();
+    console.log(error);
     return error;
   }
 };
+
 export const deleteEventThunk = (eventToDelete) => async (dispatch) => {
   try {
     const res = await csrfFetch(`/api/events/${eventToDelete.id}`, {
@@ -118,7 +119,7 @@ const eventsReducer = (state = initialState, action) => {
     case CREATE_EVENT:
       return {
         ...state,
-        allEvents: { ...state.allEvents, [action.payload.id]: action.payload },
+        allEvents: [...state.allEvents, action.payload],
       };
     case GET_SINGLE_EVENT:
       return {
@@ -128,7 +129,7 @@ const eventsReducer = (state = initialState, action) => {
     case DELETE_EVENT:
       const newState = {
         ...state,
-        allEvents: { ...state.allEvents },
+        allEvents: [...state.allEvents],
         singleEvent: {},
       };
       delete newState.allEvents[action.payload.id];

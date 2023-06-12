@@ -5,11 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Membership.belongsTo(models.User, {
         foreignKey: "userId",
-        onDelete: "CASCADE",
       });
       Membership.belongsTo(models.Group, {
         foreignKey: "groupId",
-        onDelete: "CASCADE",
       });
     }
   }
@@ -18,10 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: "CASCADE",
       },
       groupId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: "CASCADE",
       },
       status: {
         type: DataTypes.ENUM("pending", "member", "co-host", "host"),

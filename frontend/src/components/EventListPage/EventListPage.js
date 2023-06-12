@@ -21,8 +21,16 @@ const EventListPage = () => {
       </div>
     );
   }
-
-  const allEventsArr = Object.values(allEvents);
+  const CURRENT_DATE = new Date().getTime();
+  const sortedEvents = allEvents.sort((eventA, eventB) => {
+    let dateA = new Date(eventA.startDate).getTime();
+    let dateB = new Date(eventB.startDate).getTime();
+    if (dateA > CURRENT_DATE && dateB > CURRENT_DATE) return dateA - dateB;
+    else if (dateA < CURRENT_DATE && dateB < CURRENT_DATE) return dateB - dateA;
+    else if (dateA < CURRENT_DATE) return 1;
+    else return -1;
+  });
+  // const allEventsArr = Object.values(allEvents);
   return (
     <div className="events-container">
       <div className="selection-section">
@@ -49,7 +57,7 @@ const EventListPage = () => {
         <p>{currentSelection} in Meetup</p>
       </div>
       <div className="event-list">
-        {allEventsArr.map((event) => (
+        {sortedEvents.map((event) => (
           <EventCard key={event.id} event={event} />
         ))}
       </div>

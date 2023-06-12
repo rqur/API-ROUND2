@@ -91,10 +91,10 @@ const validGroup = ({ name, about, type, private, city, state }) => {
   if (!name || name.length >= 60) {
     errRes.errors.name = "Name must be 60 characters or less";
   }
-  if (!about || about.length <= 50) {
-    errRes.errors.about = "About must be 50 characters or more";
+  if (!about || about.length <= 30) {
+    errRes.errors.about = "About must be 30 characters or more";
   }
-  if (!type || (type !== "Online" && type !== "In person")) {
+  if (!type || (type !== "online" && type !== "in person")) {
     errRes.errors.type = "Type must be 'Online' or 'In person";
   }
   if (!private && typeof private !== "boolean") {
@@ -156,7 +156,7 @@ const today = () => {
 };
 
 const validEvent = ({
-  venueId,
+  // venueId,
   name,
   type,
   capacity,
@@ -171,9 +171,9 @@ const validEvent = ({
     errors: {},
   };
 
-  if (!venueId) {
-    errRes.errors.venueId = "Venue does not exist";
-  }
+  // if (!venueId) {
+  //   errRes.errors.venueId = "Venue does not exist";
+  // }
   if (!name || name.length <= 5) {
     errRes.errors.name = "Name must be at least 5 characters";
   }
@@ -186,7 +186,7 @@ const validEvent = ({
   if (!capacity || Number.isNaN(Number(capacity))) {
     errRes.errors.capacity = "Capacity must be an integer";
   }
-  if (!price || Number.isNaN(Number(price)) || price <= 0) {
+  if (!price || Number.isNaN(Number(price)) || price < 0) {
     errRes.errors.price = "Price is invalid";
   }
   if (!description) {
@@ -203,7 +203,7 @@ const validEvent = ({
     throw errRes;
   }
   return {
-    venueId,
+    // venueId,
     name,
     type: type.toLowerCase(),
     capacity,

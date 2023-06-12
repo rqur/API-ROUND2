@@ -63,7 +63,11 @@ const LandingPage = () => {
               src="https://secure.meetupstatic.com/next/images/shared/joinGroup.svg?w=384"
               alt="img"
             />
-            <NavLink to="/groups/new">Start a new group</NavLink>
+            {userSession ? (
+              <NavLink to="/groups/new">Start a new group</NavLink>
+            ) : (
+              <p className="start-new-group-btn-disabled">Start a new group</p>
+            )}
             <p>
               You don’t have to be an expert to gather people together and
               explore shared interests.

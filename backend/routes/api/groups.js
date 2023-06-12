@@ -279,19 +279,20 @@ router.post("/:groupId/events", requireAuth, async (req, res) => {
   const groupId = req.params.groupId;
   const userId = req.user.id;
   const group = await Group.findByPk(groupId);
+  console.log(group);
 
   checkIfExist(group);
 
-  const isCoHost = await Membership.findOne({
-    where: {
-      status: "co-host",
-      userId,
-      groupId,
-    },
-  });
+  // const isCoHost = await Membership.findOne({
+  //   where: {
+  //     status: "co-host",
+  //     userId,
+  //     groupId,
+  //   },
+  // });
 
-  const isOrganizer = group.organizerId === userId;
-  checkAuthorization(isOrganizer || isCoHost);
+  // const isOrganizer = group.organizerId === userId;
+  // checkAuthorization(isOrganizer || isCoHost);
   const event = await Event.create({
     groupId,
     ...validEvent(req.body),
@@ -299,7 +300,7 @@ router.post("/:groupId/events", requireAuth, async (req, res) => {
   res.json({
     id: event.id,
     groupId: event.groupId,
-    venueId: event.venueId,
+    // venueId: event.venueId,
     name: event.name,
     capacity: event.capacity,
     price: event.price,

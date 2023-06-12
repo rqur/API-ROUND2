@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import CustomGroupCard from "../GroupCard/GroupCard";
 import "./SeeAllGroups.css";
+import { getAllEventsThunk as getAllEvents } from "../../store/events";
+import Menu from "../Navigation/Menu";
 //import { getAllGroups } from "actions/groupActions";
 import * as groupActions from "../../store/groups";
 const SeeAllGroups = () => {
@@ -22,7 +24,9 @@ const SeeAllGroups = () => {
   //       </div>
   //     );
   //   }
-
+  useEffect(() => {
+    dispatch(getAllEvents());
+  }, [dispatch]);
   const allGroupsArray = Object.values(allGroups);
   console.log(allGroups);
   return (
@@ -32,13 +36,16 @@ const SeeAllGroups = () => {
           <NavLink to="/groups" activeClassName="active-link">
             Groups
           </NavLink>
+          <NavLink to="/events" activeClassName="active-link">
+            Events
+          </NavLink>
         </div>
         <p>Groups in Meetup</p>
       </section>
       <section className="groups-list">
         {allGroups &&
           allGroupsArray.map((group) => (
-            <CustomGroupCard customGroup={group} />
+            <CustomGroupCard customGroup={group} key={group.id} />
           ))}
       </section>
     </div>

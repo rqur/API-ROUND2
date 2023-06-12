@@ -21,7 +21,7 @@ const ManageGroup = () => {
     fetchData();
   }, []);
 
-  if (!userGroups) return <h3>Loading...</h3>;
+  if (!userGroups) return <h3>You're Not a Member of any of these groups</h3>;
 
   return (
     <div className="group-management-container">

@@ -1,5 +1,5 @@
 import "./GroupDetailsPage.css";
-import { NavLink, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import React from "react";
@@ -9,34 +9,43 @@ import DeleteGroup from "../DeleteGroup/DeleteGroup";
 import "./GroupDetailsPage.css";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import { useModal } from "../../context/Modal";
-
+import { EventCard } from "../EventListPage/EventCard";
+import { getAllEventsThunk as getAllEvents } from "../../store/events";
 const GroupDetailsPage = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const { groupId } = useParams();
   const group = useSelector((state) => state.groups.singleGroup);
+  const allEvents = useSelector((state) => state.events.allEvents);
   const groupOrganizerId = group.organizerId;
-
   const history = useHistory();
 
   useEffect(() => {
     dispatch(getSingleGroup(groupId));
+    dispatch(getAllEvents());
   }, [dispatch]);
 
-  if (!group.id || !group.Organizer) return <h3>Loading...</h3>;
+  const navigateToNewEvent = () => {
+    // 👇️ navigate to create event page
+    history.push(`/groups/${groupId}/events/new`);
+  };
+
+  if (!group.id || !group.Organizer) return <h3>Access Denied</h3>;
 
   const { firstName, lastName } = group.Organizer;
 
-  const handleDeleteGroup = async (groupId) => {
-    console.log(`Deleting group with ID: ${groupId}`);
-    try {
-      await dispatch(DeleteGroup(groupId));
-      history.push("/groups");
-    } catch (error) {
-      console.log("Error deleting group:", error);
-    }
-  };
-
+  const CURRENT_DATE = new Date().getTime();
+  const sortedEvents = allEvents.sort((eventA, eventB) => {
+    let dateA = new Date(eventA.startDate).getTime();
+    let dateB = new Date(eventB.startDate).getTime();
+    if (dateA > CURRENT_DATE && dateB > CURRENT_DATE) return dateA - dateB;
+    else if (dateA < CURRENT_DATE && dateB < CURRENT_DATE) return dateB - dateA;
+    else if (dateA < CURRENT_DATE) return 1;
+    else return -1;
+  });
+  const groupEvents = sortedEvents.filter(
+    (event) => event.groupId === group.id
+  );
   return (
     <div className="group-details">
       <div className="group-details__breadcrumb">
@@ -60,7 +69,7 @@ const GroupDetailsPage = () => {
               {group.city}, {group.state}
             </p>
             <div className="group-details__group-status-container">
-              <p>## events</p>
+              <p>{groupEvents.length} Events</p>
               <span>•</span>
               <p>{group.private ? "Private" : "Public"}</p>
             </div>
@@ -69,11 +78,19 @@ const GroupDetailsPage = () => {
             </p>
           </div>
           <div className="crud-container">
-            {sessionUser && (
+            {sessionUser && sessionUser.id !== groupOrganizerId && (
               <button
                 className="group-details__join-group-btn"
+                onClick={() => alert("Feature Coming Soon!")}
+              >
+                Join this Group
+              </button>
+            )}
+            {sessionUser && sessionUser.id === groupOrganizerId && (
+              <button
+                className="createEvent"
                 onClick={() => {
-                  console.log(3);
+                  history.push(`/groups/${groupId}/events/new`);
                 }}
               >
                 Create Event
@@ -82,7 +99,9 @@ const GroupDetailsPage = () => {
             {sessionUser && sessionUser.id === groupOrganizerId && (
               <button
                 className="group-details__join-group-btn"
-                onClick={() => {}}
+                onClick={() => {
+                  history.push(`/groups/${groupId}/edit`);
+                }}
               >
                 Update
               </button>
@@ -107,6 +126,14 @@ const GroupDetailsPage = () => {
           <div className="group-details__about-info">
             <h2>What we're about</h2>
             <p>{group.about}</p>
+          </div>
+          <div className="group-detail-event">
+            <h3>Upcoming Events {groupEvents.length}</h3>
+            <div className="group-event-card">
+              {groupEvents.map((event) => (
+                <EventCard key={event.id} event={event} />
+              ))}
+            </div>
           </div>
         </div>
       </section>

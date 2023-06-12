@@ -6,8 +6,8 @@ const validateGroupEdit = [
     .isLength({ min: 1, max: 60 })
     .withMessage("Name must be 60 characters or less"),
   check("about")
-    .isLength({ min: 50 })
-    .withMessage("About must be 50 characters or more"),
+    .isLength({ min: 30 })
+    .withMessage("About must be 30 characters or more"),
   check("type")
     .isIn(["online", "in person"])
     .withMessage("Type must be 'online' or 'in person'"),

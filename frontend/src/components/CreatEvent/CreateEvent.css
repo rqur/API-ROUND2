@@ -1,0 +1,19 @@
+.event-creator {
+  display: flex;
+  gap: 2rem;
+  cursor: pointer;
+  border-top: 2px solid gray;
+  flex-direction: column;
+  margin-left: 8rem;
+  width: 50%;
+}
+.event-creator > section:not(:last-child) {
+  border-bottom: 1px solid gray;
+}
+.event-creator__create-event-btn {
+  background-color: rgb(186, 19, 167);
+  color: white;
+  width: fit-content;
+  padding: 0.3rem 0.6rem;
+  box-shadow: 3px 3px 3px hsla(0, 0%, 0%, 0.9);
+}

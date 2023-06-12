@@ -9,7 +9,28 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
-
+  const sessionLinks = sessionUser ? (
+    <div className="user-profile-container">
+      <NavLink to="/groups/new" className="start-group-link">
+        Start a new group
+      </NavLink>
+      <ul className="dropdown-container">
+        <Menu user={sessionUser} />
+      </ul>
+    </div>
+  ) : (
+    <div className="action-buttons-container">
+      <OpenModalMenuItem
+        itemText="Log In"
+        modalComponent={<LoginFormModal />}
+      />
+      <OpenModalMenuItem
+        className="action-button"
+        itemText="Sign Up"
+        modalComponent={<SignupFormModal />}
+      />
+    </div>
+  );
   return (
     <ul className="navbar">
       <li>
@@ -19,7 +40,8 @@ function Navigation({ isLoaded }) {
       </li>
       {isLoaded && (
         <li>
-          <Menu user={sessionUser} />
+          {sessionLinks}
+          {/* <Menu user={sessionUser} /> */}
         </li>
       )}
     </ul>

@@ -28,6 +28,12 @@ const deleteGroup = (group) => {
     payload: group,
   };
 };
+const updateGroup = (group) => {
+  return {
+    type: UPDATE_GROUP,
+    payload: group,
+  };
+};
 
 // const addGroupImage = (image) => ({
 //   type: ADD_GROUP_IMAGE,
@@ -57,6 +63,7 @@ export const SeeSingleGroupThunk = (groupId) => async (dispatch) => {
     console.error(error);
   }
 };
+
 export function deleteGroupThunk(groupToDelete) {
   console.log(groupToDelete);
   return async function deleteGroupThunkDispatch(dispatch) {
@@ -88,20 +95,32 @@ export function deleteGroupThunk(groupToDelete) {
 //   return img;
 //}
 //};
-
-export const createGroupThunk = (group, image) => async (dispatch) => {
-  const res = await csrfFetch("/api/groups", {
-    method: "POST",
+export const updateGroupThunk = (group, image) => async (dispatch) => {
+  const res = await csrfFetch(`/api/groups/${group.id}`, {
+    method: "PUT",
     body: JSON.stringify(group),
   });
 
   if (res.ok) {
     const newGroup = await res.json();
-    dispatch(createGroup(newGroup));
+    dispatch(updateGroup(newGroup));
     // dispatch(addImageToGroupThunk(image, newGroup.id));
 
     return newGroup;
   }
+};
+export const createGroupThunk = (group, image) => async (dispatch) => {
+  const res = await csrfFetch("/api/groups", {
+    method: "POST",
+    body: JSON.stringify(group),
+  });
+  const newGroup = await res.json();
+
+  if (res.ok) {
+    dispatch(createGroup(newGroup));
+    // dispatch(addImageToGroupThunk(image, newGroup.id));
+  }
+  return newGroup;
 };
 const initialState = { allGroups: {}, singleGroup: {} };
 
@@ -110,6 +129,11 @@ const groupsReducer = (state = initialState, action) => {
     case See_ALL_GROUPS: {
       const newState = { ...state };
       newState.allGroups = action.payload;
+      return newState;
+    }
+    case UPDATE_GROUP: {
+      const newState = { ...state };
+      newState.singleGroup = action.payload;
       return newState;
     }
     case CREATE_GROUP: {

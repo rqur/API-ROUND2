@@ -10,9 +10,8 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const history = useHistory();
   const [password, setPassword] = useState("");
-  const [isDisabled, setIsDisabled] = useState(false);
   const [credential, setCredential] = useState("");
-
+  const isDisabled = credential.length < 4 || password.length < 6;
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
@@ -35,6 +34,7 @@ function LoginFormModal() {
       }
     );
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <h1>Log In</h1>

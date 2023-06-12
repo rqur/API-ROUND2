@@ -1,0 +1,37 @@
+.event-details__group-section {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.event-details__image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: black solid 1px;
+}
+
+.event-details__event-image {
+  width: 500px;
+}
+
+.event-details__breadcrumb {
+  margin-bottom: 20px;
+}
+.event-details-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+i {
+  font-size: 1rem;
+  width: 20px;
+  height: 20px;
+}
+.start-to-end {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0rem 0.4rem;
+}

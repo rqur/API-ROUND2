@@ -5,12 +5,13 @@ import { createEventThunk as createEvent } from "../../store/events";
 import { SeeSingleGroupThunk as getSingleGroup } from "../../store/groups";
 import { useParams, useHistory } from "react-router-dom";
 import React from "react";
+
 const CreateEvent = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const { groupId } = useParams();
   const [name, setName] = useState("");
   const group = useSelector((state) => state.groups.singleGroup);
+  const history = useHistory();
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState({});
@@ -18,8 +19,9 @@ const CreateEvent = () => {
   const [imgUrl, setImgUrl] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [inFlight, setInFlight] = useState(false);
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
     const validation = {};
     if (!name) {
       validation.name = "Name is required";
@@ -28,29 +30,30 @@ const CreateEvent = () => {
       validation.type = "Event type is required";
     }
     if (!startDate) {
-      validation.eventStart = "Event start is required";
+      validation.eventStart = "Event start date is required";
     }
     if (!endDate) {
-      validation.eventEnd = "Event end is required";
-    }
-    const isValidImgUrl =
-      imgUrl.endsWith(".jpg") ||
-      imgUrl.endsWith(".png") ||
-      imgUrl.endsWith(".jpeg");
-    if (!isValidImgUrl) {
-      validation.imgUrl = "Image Url must end in .png, .jpg, or .jpeg";
+      validation.eventEnd = "Event end date is required";
     }
     if (description.length < 30) {
       validation.description =
         "Description must be at least 30 characters long";
     }
-    if (Object.values(validation).length > 0) {
-      setErrors(validation);
+    if (price < 0) {
+      validation.price = "Price must not be negative";
+    }
+    setErrors(validation);
+  }, [name, type, startDate, endDate, description, price]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setInFlight(true);
+    if (Object.keys(errors).length > 0) {
       return;
     }
 
     const newEvent = {
-      venueId: group.Venues[0].id,
+      groupId: parseInt(groupId),
       name,
       type,
       price: parseInt(price),
@@ -58,21 +61,14 @@ const CreateEvent = () => {
       description,
       startDate,
       endDate,
+      venueId: 1,
     };
 
-    const newImage = {
-      url: imgUrl,
-      preview: true,
-    };
-
-    const res = await dispatch(
-      createEvent(newEvent, groupId, newImage, group.Venues[0])
-    );
-
-    if (res.id) {
-      history.push(`/events/${res.id}`);
-    } else {
+    const res = await dispatch(createEvent(newEvent));
+    if (res.errors) {
       setErrors(res.errors);
+    } else {
+      history.push(`/events/${res.id}`);
     }
   };
 
@@ -92,17 +88,25 @@ const CreateEvent = () => {
             placeholder="Event Name"
           />
         </div>
-        {errors.name && <p error={errors.name} />}
+        {errors.name && inFlight && (
+          <p style={{ color: "red" }} p>
+            {errors.name}
+          </p>
+        )}
       </section>
       <section className="event-creator__visibility-price-section">
         <div className="event-creator__type-input-container">
           <p>Is this an in-person or online event?</p>
           <select value={type} onChange={(e) => setType(e.target.value)}>
             <option value="(select one)">(select one)</option>
-            <option value="In person">In Person</option>
-            <option value="Online">Online</option>
+            <option value="in person">In Person</option>
+            <option value="online">Online</option>
           </select>
-          {errors.type && <p error={errors.type} />}
+          {errors.type && inFlight && (
+            <p style={{ color: "red" }} p>
+              {errors.type}
+            </p>
+          )}{" "}
         </div>
         <div className="event-creator__price-input-container">
           <p>What is the price for your event?</p>
@@ -112,7 +116,11 @@ const CreateEvent = () => {
             type="number"
             min={0}
           />
-          {errors.price && <p error={errors.price} />}
+          {errors.price && inFlight && (
+            <p style={{ color: "red" }} p>
+              {errors.price}
+            </p>
+          )}{" "}
         </div>
       </section>
       <section className="event-creator__date-section">
@@ -123,7 +131,11 @@ const CreateEvent = () => {
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
-          {errors.eventStart && <p error={errors.eventStart} />}
+          {errors.eventStart && inFlight && (
+            <p style={{ color: "red" }} p>
+              {errors.eventStart}
+            </p>
+          )}{" "}
         </div>
         <div className="event-creator__end-date-container">
           <p>When does your event end?</p>
@@ -132,7 +144,11 @@ const CreateEvent = () => {
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
-          {errors.eventEnd && <p error={errors.eventEnd} />}
+          {errors.eventEnd && inFlight && (
+            <p style={{ color: "red" }} p>
+              {errors.eventEnd}
+            </p>
+          )}{" "}
         </div>
       </section>
       <section className="event-creator__image-section">
@@ -143,7 +159,11 @@ const CreateEvent = () => {
             onChange={(e) => setImgUrl(e.target.value)}
             placeholder="Image URL"
           />
-          {errors.imgUrl && <p error={errors.imgUrl} />}
+          {errors.imgUrl && inFlight && (
+            <p style={{ color: "red" }} p>
+              {errors.imgUrl}
+            </p>
+          )}{" "}
         </div>
       </section>
       <section className="event-creator__desc-section">
@@ -154,7 +174,11 @@ const CreateEvent = () => {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Please include at least 30 characters"
           />
-          {errors.description && <p error={errors.description} />}
+          {errors.description && inFlight && (
+            <p style={{ color: "red" }} p>
+              {errors.description}
+            </p>
+          )}{" "}
         </div>
       </section>
       <button

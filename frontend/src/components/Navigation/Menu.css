@@ -1,7 +1,37 @@
 #Menu {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   width: 120px;
   cursor: pointer;
   color: rgb(141, 8, 99);
+}
+
+.hidden {
+  display: none;
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+
+.profile-dropdown {
+  list-style-type: none;
+}
+.start-group-link {
+  cursor: pointer;
+}
+.fa-user-circle {
+  color: red;
+  cursor: pointer;
+}
+.user-profile-container {
+  display: flex;
+  flex-direction: row;
+}
+.profile-dropdown {
+  border: 1px solid black;
+  font-size: 13px;
 }

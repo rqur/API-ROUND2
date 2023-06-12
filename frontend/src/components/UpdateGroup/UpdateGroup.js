@@ -12,27 +12,32 @@ import { useParams } from "react-router-dom";
 const UpdateGroup = () => {
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
+  const group = useSelector((state) => state.groups.singleGroup);
   const { groupId } = useParams();
-  const [desc, setDesc] = useState("");
-  const [location, setLocation] = useState("");
+  const [desc, setDesc] = useState(group.about);
+
+  const [location, setLocation] = useState(`${group.city}, ${group.state}`);
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
+  const [name, setName] = useState(group.name);
   const validation = {};
   const [errors, setErrors] = useState({});
-  const [groupType, setGroupType] = useState("");
-  const [groupStatus, setGroupStatus] = useState("");
+
+  const [groupType, setGroupType] = useState(group.type);
+  const [groupStatus, setGroupStatus] = useState(
+    group.private ? "Private" : "Public"
+  );
 
   useEffect(() => {
     dispatch(getSingleGroup(groupId));
   }, [dispatch, groupId]);
 
-  useEffect(() => {
-    if (user === null) {
-      history.push("/");
-    }
-  }, [user, history]);
-
-  const handleGroupSubmit = async (e) => {
+  if (!group.id) {
+    return null;
+  }
+  if (user === null || user.id !== group.organizerId) {
+    history.push("/");
+  }
+  const GroupSubmit = async (e) => {
     if (!location) {
       validation.location = "Location is required";
     }
@@ -56,6 +61,7 @@ const UpdateGroup = () => {
     const [city, state] = location.split(", ");
 
     const updatedGroup = {
+      id: group.id,
       name,
       about: desc,
       type: groupType,
@@ -63,6 +69,7 @@ const UpdateGroup = () => {
       city,
       state,
     };
+    console.log(updatedGroup);
 
     const res = await dispatch(updateGroup(updatedGroup, groupId));
 
@@ -88,7 +95,7 @@ const UpdateGroup = () => {
         </p>
         <input
           className="group-updater-location-input"
-          placeholder="City, STATE"
+          placeholder="City, State"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />
@@ -135,8 +142,8 @@ const UpdateGroup = () => {
             onChange={(e) => setGroupType(e.target.value)}
           >
             <option value="(select one)">(select one)</option>
-            <option value="Online">Online</option>
-            <option value="In person">In Person</option>
+            <option value="online">Online</option>
+            <option value="in person">In Person</option>
           </select>
           {errors.groupType && <p error={errors.groupType} />}
         </div>
@@ -155,10 +162,7 @@ const UpdateGroup = () => {
         </div>
       </section>
       <section className="group-updater-submission-section">
-        <button
-          className="group-updater-submit-btn"
-          onClick={handleGroupSubmit}
-        >
+        <button className="group-updater-submit-btn" onClick={GroupSubmit}>
           Update Group
         </button>
       </section>
