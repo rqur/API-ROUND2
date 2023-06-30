@@ -24,7 +24,7 @@ module.exports = {
         organizerId: 1,
         name: "Cooks and Conversations Group",
         about:
-          "Members of Cooks and Conversations group often share recipes, cooking techniques, and tips with one another. They may discuss favorite recipes, unique ingredients, and different cooking methods, providing a platform for exchanging ideas and expanding culinary knowledge.",
+          "Members of Cooks and Conversations group share recipes, cooking techniques, and tips. They discuss favorite recipes, unique ingredients, and cooking methods, providing a platform for exchanging ideas and expanding culinary knowledge.",
         type: "in person",
         private: true,
         city: "Chicago",
