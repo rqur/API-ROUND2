@@ -11,6 +11,7 @@ import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import { useModal } from "../../context/Modal";
 import { EventCard } from "../EventListPage/EventCard";
 import { getAllEventsThunk as getAllEvents } from "../../store/events";
+import spaceMarineImage from "./viglomir_minimalistic_tarot_card_of_Space_Marine_from_warhammer_61ca53db-ebc1-4c9b-ac5c-3ae4576f3126.png";
 const GroupDetailsPage = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();

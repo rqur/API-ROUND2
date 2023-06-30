@@ -2,16 +2,17 @@
   display: flex;
   flex-direction: column;
   width: 50%;
-  gap: 2rem;
+  gap: 3rem;
   font-size: 20px;
   margin: 3rem auto;
   align-items: center;
+  margin-top: 8rem;
 }
 
 .main-content-meetup-works {
   text-align: center;
-  margin-top: 3rem;
-  grid-column: span 2;
+  margin-top: 5rem;
+  grid-column: span 3;
 }
 
 .main-content-cards-container {
@@ -52,4 +53,9 @@ h1 {
 }
 .start-new-group-btn-disabled {
   color: gray;
+}
+.main-content-title {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
 }

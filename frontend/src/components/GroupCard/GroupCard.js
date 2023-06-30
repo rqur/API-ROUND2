@@ -3,6 +3,7 @@ import React from "react";
 import "./GroupCard.css";
 import useme from "./useme.svg";
 import { useSelector } from "react-redux";
+import img5256 from "./IMG_5256.png";
 
 const CustomGroupCard = ({ customGroup }) => {
   const history = useHistory();

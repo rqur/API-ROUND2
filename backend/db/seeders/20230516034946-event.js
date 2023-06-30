@@ -12,9 +12,10 @@ module.exports = {
       {
         venueId: 1,
         groupId: 1,
-        name: "BEACH PARTYY!!!",
-        description: "18+ Bring Your Own Beverages",
-        type: "in person",
+        name: "StarGazing",
+        description:
+          "Bring Your Own Beverages if you want to see double the amout of stars",
+        type: "In person",
         capacity: 50,
         price: 40,
         startDate: "2023-05-21 12:05:01",
@@ -23,9 +24,10 @@ module.exports = {
       {
         venueId: 2,
         groupId: 2,
-        name: "Yacht Party",
-        description: "50+ People on an all inclusive trip",
-        type: "in person",
+        name: "The Spicy Gastronomic Showdown",
+        description:
+          "An electrifying cooking event that brings together renowned chefs and adventurous food enthusiasts from around the world. The event celebrates the thrill of spice and pushes the boundaries of culinary creativity.",
+        type: "In person",
         capacity: 50,
         price: 40,
         startDate: "2023-10-25 01:12:12",
@@ -36,7 +38,7 @@ module.exports = {
         groupId: 3,
         name: "GET LIT OR GET LET OUT",
         description:
-          "Live Music, Games, Dancing till the sun comes out. Join us on calm beach starting at 8PM",
+          "Live Music, Games, Dancing till the sun comes out. Join us on a wild night starting at 8PM",
         type: "in person",
         capacity: 50,
         price: 40,
