@@ -13,7 +13,7 @@ module.exports = {
         organizerId: 1,
         name: "Astrology Enthusiasts Group",
         about:
-          "Astrology Enthusiasts provides a platform for individuals to explore and understand themselves better based on their zodiac sign's typical personality traits. Members can share insights, experiences, and advice on personal growth and self-improvement based on astrological concepts.",
+          "Astrology Enthusiasts offers a platform for individuals to explore and understand themselves based on their zodiac sign's traits. Members can share insights, experiences, and advice on personal growth using astrology.",
         type: "in person",
         private: true,
         city: "Chicago",
@@ -35,7 +35,7 @@ module.exports = {
         organizerId: 1,
         name: "Party Pioneers Group",
         about:
-          "Imagine stepping into a world where the beats pulse through your veins, where the lights dance in sync with your electrifying energy, and where every moment is a testament to your unstoppable party prowess. From glamorous soirées under the stars to jaw-dropping themed extravaganzas, you have the power to sculpt experiences that will be etched into the memories of those lucky enough to attend.",
+          "Imagine stepping into a world where the beats pulse through your veins. From glamorous soirées under the stars to jaw-dropping themed extravaganzas, you have the power to sculpt experiences that will be etched into the memories of those lucky enough to attend.",
         type: "in person",
         private: true,
         city: "Chicago",
