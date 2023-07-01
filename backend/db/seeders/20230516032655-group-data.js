@@ -35,7 +35,7 @@ module.exports = {
         organizerId: 1,
         name: "Party Pioneers Group",
         about:
-          "Imagine stepping into a world where the beats pulse through your veins. From glamorous soirées under the stars to jaw-dropping themed extravaganzas, you have the power to sculpt experiences that will be etched into the memories of those lucky enough to attend.",
+          "Step into a world where beats pulse through your veins. From soirées under stars to themed extravaganzas, sculpt memorable experiences etched into attendees' memories.",
         type: "in person",
         private: true,
         city: "Chicago",
