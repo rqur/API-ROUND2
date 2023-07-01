@@ -13,7 +13,7 @@ module.exports = {
         organizerId: 1,
         name: "Astrology Enthusiasts Group",
         about:
-          "Astrology Enthusiasts offers a platform for individuals to explore and understand themselves based on their zodiac sign's traits. Members can share insights, experiences, and advice on personal growth using astrology.",
+          "This group offers a platform for individuals to explore and understand themselves based on their zodiac sign's traits. Members can share insights, experiences, and advice on personal growth using astrology.",
         type: "in person",
         private: true,
         city: "Chicago",
@@ -24,7 +24,7 @@ module.exports = {
         organizerId: 1,
         name: "Cooks and Conversations Group",
         about:
-          "Members of Cooks and Conversations group share recipes, cooking techniques, and tips. They discuss favorite recipes, unique ingredients, and cooking methods, providing a platform for exchanging ideas and expanding culinary knowledge.",
+          "Members of this group share recipes, cooking techniques, and tips. They discuss favorite recipes, unique ingredients, and cooking methods, providing a platform for exchanging ideas and expanding culinary knowledge.",
         type: "in person",
         private: true,
         city: "Chicago",
