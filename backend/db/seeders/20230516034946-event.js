@@ -15,7 +15,7 @@ module.exports = {
         name: "StarGazing",
         description:
           "Bring Your Own Beverages if you want to see double the amout of stars",
-        type: "In person",
+        type: "in person",
         capacity: 50,
         price: 40,
         startDate: "2023-05-21 12:05:01",
@@ -27,7 +27,7 @@ module.exports = {
         name: "The Spicy Gastronomic Showdown",
         description:
           "An electrifying cooking event that brings together renowned chefs and adventurous food enthusiasts from around the world. The event celebrates the thrill of spice and pushes the boundaries of culinary creativity.",
-        type: "In person",
+        type: "in person",
         capacity: 50,
         price: 40,
         startDate: "2023-10-25 01:12:12",
