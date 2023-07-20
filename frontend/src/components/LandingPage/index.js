@@ -15,8 +15,8 @@ const LandingPage = () => {
 
           <p>
             Whatever your interest, from hiking and reading to networking and
-            skill sharing, there are thousands of people who share it on Meetup.
-            Events are happening every day—sign up to join the fun.
+            skill sharing, there are thousands of people who share it on
+            WikiTaz. Events are happening every day—sign up to join the fun.
           </p>
         </section>
         <section className="main-content-image">
@@ -42,7 +42,8 @@ const LandingPage = () => {
               alt="img"
             />
             <NavLink to="/groups">See all groups</NavLink>
-            <p>
+            <p className="card-description">
+              {" "}
               Do what you love, meet others who love it, find your community.
               The rest is history!
             </p>
@@ -53,7 +54,8 @@ const LandingPage = () => {
               alt="img"
             />
             <NavLink to="/events">Find an event</NavLink>
-            <p>
+            <p className="card-description">
+              {" "}
               Events are happening on just about any topic you can think of,
               from online gaming and photography to yoga and hiking.
             </p>
@@ -68,7 +70,8 @@ const LandingPage = () => {
             ) : (
               <p className="start-new-group-btn-disabled">Start a new group</p>
             )}
-            <p>
+            <p className="card-description">
+              {" "}
               You don’t have to be an expert to gather people together and
               explore shared interests.
             </p>
