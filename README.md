@@ -1,4 +1,5 @@
-# [wikiTaz]
+# WikiTaz 
+<img width="730" alt="Screenshot 2023-07-20 at 1 03 53 PM" src="https://github.com/rqur/WikiTaz-API/assets/121047683/765e8c26-4cb3-42cc-a859-7d509a364a6c">
 
 ## Database Schema Design
 
