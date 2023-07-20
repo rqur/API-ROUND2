@@ -2,11 +2,6 @@
 
 <img width="715" alt="WikiTaz-Preview" src="https://github.com/rqur/WikiTaz-API/assets/121047683/d4fc5fbb-783c-4e26-8e86-21c89cc388a5">
 
-## Database Schema Design
-
-![db-schema]
-
-[db-schema]: /images/meetup_dbdiagram.png
 
 ## API Documentation
 
@@ -2355,3 +2350,8 @@ Return events filtered by query parameters.
       }
     }
     ```
+## Database Schema Design
+
+![db-schema]
+
+[db-schema]: /images/meetup_dbdiagram.png
